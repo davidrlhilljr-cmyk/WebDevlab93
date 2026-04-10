@@ -23,8 +23,7 @@ Welcome to our Streamlit Web Development Lab03 app! You can navigate between the
 
 1. Home Page: Introduces the purpose of the app and provides navigation to all other pages.
 2. Data Explorer: Fetches and analyzes real-time data from a public web API, displaying it with interactive charts.
-3. LLM Insights: Uses a pre-trained large language model to interpret and summarize the API data with natural language.
-4. Gemini Chatbot: Integrates Google Gemini to create a chatbot that specializes in answering questions based on the API's domain
+3. Gemini Chatbot: Integrates Google Gemini to create a chatbot that specializes in answering questions based on the API's domain
 """)
 
 
