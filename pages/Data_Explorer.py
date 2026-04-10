@@ -7,7 +7,7 @@ from datetime import date, timedelta
 # ✅ MUST be first Streamlit command
 st.set_page_config(page_title="Weather Explorer", page_icon="🌤️", layout="wide")
 
-st.title("🌤️ Weather Explorer (Open‑Meteo)")
+st.title("🌤️ Weather Explorer ")
 st.caption("Explore historical temperature and wind data by location and date range.")
 
 # Sidebar inputs (≥ 2 — REQUIRED)
