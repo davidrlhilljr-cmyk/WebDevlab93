@@ -1,6 +1,5 @@
 import streamlit as st
-import google.generativeai as genai
-import os
+from google import genai
 
 st.title("Weather Chatbot")
 st.write("Ask general weather related questions, packing questions, or activity ideas.")
