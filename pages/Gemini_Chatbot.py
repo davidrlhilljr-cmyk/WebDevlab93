@@ -13,7 +13,7 @@ with st.sidebar:
     city = st.text_input("City / Place", value="Atlanta")
 
 # Configure Gemini
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-pro")
 
 # ✅ Chat memory (REQUIRED)
