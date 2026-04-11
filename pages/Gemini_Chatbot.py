@@ -2,47 +2,52 @@ import streamlit as st
 import google.generativeai as genai
 import os
 
+# MUST be first Streamlit call
 st.set_page_config(page_title="AI Weather Chatbot", page_icon="💬", layout="wide")
 
 st.title("💬 AI Weather Chatbot")
-st.caption("Ask general weather‑related questions (Metric units: °C, m/s).")
+st.caption("Ask general weather-related questions (Metric units).")
 
-# Sidebar inputs (≥ 2 interactions REQUIRED)
+# Sidebar input
 with st.sidebar:
-    st.header("Inputs")
     city = st.text_input("City / Place", value="Atlanta")
 
-# Configure Gemini
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel("gemini-pro")
+# ✅ Fail fast if API key missing
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    st.error("GEMINI_API_KEY not found. Set it as an environment variable.")
+    st.stop()
 
-# ✅ Chat memory (REQUIRED)
+genai.configure(api_key=api_key)
+
+# ✅ Use fast, reliable model
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+# Chat memory
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-st.subheader("Chat")
-st.info("Responses may take a few seconds due to external AI service latency.")
-
-user_input = st.text_input("Ask a weather‑related question:")
+user_input = st.text_input("Ask a weather-related question:")
 
 if st.button("Ask"):
     if user_input.strip():
         prompt = f"""
-        You are a helpful AI weather assistant.
-        Location: {city}
-        Units: Metric (°C, m/s)
-        Question: {user_input}
-        Provide general weather advice without using real‑time data.
-        """
+You are a helpful weather assistant.
+Location: {city}
+Units: Metric (°C, m/s)
+Question: {user_input}
+Give general guidance without real-time data.
+"""
         try:
             with st.spinner("Thinking..."):
                 response = model.generate_content(prompt)
                 st.session_state.chat_history.append(("You", user_input))
                 st.session_state.chat_history.append(("AI", response.text))
         except Exception as e:
-            st.error(f"AI Error: {e}")
+            st.error("AI service timed out. Please try again.")
+    else:
+        st.warning("Please enter a question.")
 
-# Display conversation history
+# Display chat
 for speaker, msg in st.session_state.chat_history:
-    st.markdown(f"**{speaker}:** {msg}")
     st.markdown(f"**{speaker}:** {msg}")
