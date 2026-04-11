@@ -13,7 +13,7 @@ with st.sidebar:
     city = st.text_input("City / Place", value="Atlanta")
 
 # ✅ Fail fast if API key missing
-api_key = os.getenv("GEMINI_API_KEY")
+api_key = st.secrets["GEMINI_API_KEY"]
 if not api_key:
     st.error("GEMINI_API_KEY not found. Set it as an environment variable.")
     st.stop()
