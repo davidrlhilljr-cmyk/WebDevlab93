@@ -44,7 +44,7 @@ Give general guidance without real-time data.
                 st.session_state.chat_history.append(("You", user_input))
                 st.session_state.chat_history.append(("AI", response.text))
         except Exception as e:
-            st.error("AI service timed out. Please try again.")
+            st.error(f"Actual error: {e}")
     else:
         st.warning("Please enter a question.")
 
